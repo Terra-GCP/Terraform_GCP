@@ -1,22 +1,22 @@
 #.................................... Terraform Backend ....................................#
 
-/* terraform {
+terraform {
     backend "gcs" {
     bucket  = "ayush_bucket"
     prefix  = "tf_state/"
   }
-} */
+}
 
 #..................................... Provider Block ......................................#
 
 provider "google" {
-    credentials = file("${var.credentials}") 
+    #credentials = file("${var.credentials}")
     project = "${var.project_id}"
     region = "${var.region}"
     zone = "${var.zone}"
 }
 provider "google-beta" {
-  credentials = file("${var.credentials}") 
+    #credentials = file("${var.credentials}") 
     project = "${var.project_id}"
     region = "${var.region}"
     zone = "${var.zone}"

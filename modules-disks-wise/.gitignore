@@ -1,0 +1,9 @@
+# Ignore Service Account Key file
+
+*.json
+application_default_credentials.json
+
+# Ignore SSH key file
+*.pub
+*_rsa
+instance_group/id_rsa.pub

@@ -16,13 +16,13 @@ module "compute_firewall" {
     source = "./compute_firewall"
     network_name = module.compute_network.network_name
     firewall_name = "${var.prefix}-firewall-rule"
-    depends = module.compute_subnetwork.subnet_name
+    depends = module.compute_subnetwork.subnetwork_name
 }
 
 module "compute_address" {
     source = "./compute_address"                                                #.....Replace Me.....#
-    subnet_name = module.compute_subnetwork.subnet_name
-    depends = module.compute_subnetwork.subnet_name
+    subnet_name = module.compute_subnetwork.subnetwork_name
+    depends = module.compute_subnetwork.subnetwork_name
 }
 
 /* module "instance_template" {
@@ -34,7 +34,7 @@ module "compute_address" {
 module "snapshot_schedule" {
     source = "./snapshot_schedule"
     schedule_name = "${var.prefix}-snapshot-schedule"                         #.....Replace Me.....#
-    depends = module.compute_address.External_IP_self_link
+    depends = module.compute_address.External_IP_Name
 }
 
 module "compute_disk" {
@@ -43,7 +43,7 @@ module "compute_disk" {
     boot_disk_name = "${var.prefix}-boot-disk"                                #.....Replace Me.....#
     data_disk_name = "${var.prefix}-data-disk"                                #.....Replace Me.....#
     resource_policies = module.snapshot_schedule.schedule_id                               
-    depends = module.snapshot_schedule.schedule_id
+    depends = module.snapshot_schedule.schedule_name
 }
 
 module "filestore_instance" {
@@ -51,7 +51,7 @@ module "filestore_instance" {
     filestore_name = "${var.prefix}-filestore"
     zone = "${var.zone}"
     network_name = module.compute_network.network_id                     
-    depends = module.compute_disk.Data_Disk_Details
+    depends = module.compute_disk.Data_Disk_Name
 }
 
 module "instance_group" {
@@ -62,15 +62,15 @@ module "instance_group" {
     data_disk_source = module.compute_disk.Data_Disk_Name
     hostname = "${var.prefix}.compute.engine"
     network_name = module.compute_network.network_id
-    subnet_name = module.compute_subnetwork.subnet_name
-    network_ip = module.compute_address.Internal_IP
-    nat_ip = module.compute_address.External_IP
+    subnet_name = module.compute_subnetwork.subnetwork_name
+    network_ip = module.compute_address.Internal_IP_Address
+    nat_ip = module.compute_address.External_IP_Address
     ig_name = "${var.prefix}-instance-group"
-    depends = module.filestore_instance.filestore_id
+    depends = module.filestore_instance.filestore_name
 }
 
 module "os_patching" {
     source = "./os_patching"
     patch_id = "${var.prefix}-os-patch"
-    depends = module.instance_group.UMIG_Details
+    depends = module.instance_group.UMIG_Name
 }

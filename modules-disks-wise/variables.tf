@@ -1,10 +1,10 @@
 #..................................... Provider Block ......................................#
 
-variable "credentials" {
+/* variable "credentials" {
     type = any
     default =  "application_default_credentials.json"
     description = "Service Account Credentials to be used for interaction"
-}
+} */
 variable "project_id" {
     type = any
     default =  "neural-foundry-368906"

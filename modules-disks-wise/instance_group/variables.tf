@@ -15,6 +15,21 @@ variable "depends" {
     description = "Explicit Dependency"
 }
 
+#.................................. Secret Manager Data Block ..................................#
+
+variable "secret_name_key" {
+    type = string
+    default = "ssh-user"
+}
+variable "secret_name_value" {
+    type = string
+    default = "ssh-keys"
+}
+variable "secret_version" {
+    type = string
+    default = "1"
+}
+
 #.......................................Instance Provisioning ...................................#
 
 variable "vm_name" {
@@ -167,10 +182,10 @@ variable "confidential__mode" {
 
 // ............ metadata_block ............. //
 
-variable "user" {
+/* variable "user" {
     sensitive = true
     default = "ayush25shukla"
-}
+} */
 variable "key_1" {
     sensitive = true
     default = "enable-osconfig"
@@ -191,9 +206,9 @@ variable "key_3" {
     sensitive = true
     default = "ssh-keys"
 }
-variable "public_key" {
+/* variable "public_key" {
     default = "./instance_group/id_rsa.pub"
-}
+} */
 
 #......................................Unmanaged Instance Group ........................................#
 

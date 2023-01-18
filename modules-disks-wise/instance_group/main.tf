@@ -5,6 +5,17 @@ data "google_service_account" "TF_Service_Account" {
   depends_on = [var.depends]
 }
 
+#................................. Secret Manager Data Block ..................................#
+
+data "google_secret_manager_secret_version" "get_ssh_user" {
+  secret = var.secret_name_key
+  version = var.secret_version
+}
+data "google_secret_manager_secret_version" "get_ssh_key" {
+  secret = var.secret_name_value
+  version = var.secret_version
+}
+
 #..................................... VM Provisioning .......................................#
 
 resource "google_compute_instance" "TF_VM" {
@@ -57,14 +68,10 @@ resource "google_compute_instance" "TF_VM" {
     enable_confidential_compute = var.confidential__mode
   }
 
-  lifecycle {
-    create_before_destroy = false
-  }
-
   metadata = {
       "${var.key_1}" = "${var.key_1_value}"
       "${var.key_2}" = "${var.key_2_value}"
-      "${var.key_3}" = "${var.user}:${file(var.public_key)}"
+      "${var.key_3}" = "${data.google_secret_manager_secret_version.get_ssh_user.secret_data}:${data.google_secret_manager_secret_version.get_ssh_key.secret_data}"
   }
   
   service_account {
