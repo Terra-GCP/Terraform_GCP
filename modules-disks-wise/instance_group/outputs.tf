@@ -27,15 +27,15 @@ output "VM_Labels" {
   description = "The labels of the VM being created"
 }
 output "VM_Maintenance" {
-  value       = google_compute_instance.TF_VM.scheduling[0].on_host_maintenance
+  value       = google_compute_instance.TF_VM.scheduling.*.on_host_maintenance
   description = "The On-Host-Maintenance status of the VM being created"
 }
-output "VM_Service_Account" {
+/* output "VM_Service_Account" {
   value       = google_compute_instance.TF_VM.service_account
   description = "The service being used for the VM"
-}
+} */
 output "VM_Confidential_Mode" {
-  value       = google_compute_instance.TF_VM.confidential_instance_config[0].enable_confidential_compute
+  value       = google_compute_instance.TF_VM.confidential_instance_config.*.enable_confidential_compute
   description = "The Confidential Mode status of the VM"
 }
 
@@ -45,7 +45,7 @@ output "UMIG_Name" {
   value       = google_compute_instance_group.TF_IG.name
   description = "The Name of the UMIG being created"
 }
-output "UMIG_Instances" {
+/* output "UMIG_Instances" {
   value       = google_compute_instance_group.TF_IG.instances
   description = "The Name of the Instances being created under UMIG"
-}
+} */
