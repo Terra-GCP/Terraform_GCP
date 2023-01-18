@@ -184,10 +184,10 @@ output "VM_Maintenance" {
   value       = module.instance_group.VM_Maintenance
   description = "The On-Host-Maintenance status of the VM being created"
 }
-output "VM_Service_Account" {
+/* output "VM_Service_Account" {
   value       = module.instance_group.VM_Service_Account
   description = "The service being used for the VM"
-}
+} */
 output "VM_Confidential_Mode" {
   value       = module.instance_group.VM_Confidential_Mode
   description = "The Confidential Mode status of the VM"
@@ -199,10 +199,10 @@ output "UMIG_Name" {
   value       = module.instance_group.UMIG_Name
   description = "The Name of the UMIG being created"
 }
-output "UMIG_Instances" {
+/* output "UMIG_Instances" {
   value       = module.instance_group.UMIG_Instances
   description = "The Name of the Instances being created under UMIG"
-}
+} */
 
 #........................................ OS Patching Output .....................................#
 
