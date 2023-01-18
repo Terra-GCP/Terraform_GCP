@@ -7,3 +7,8 @@ application_default_credentials.json
 *.pub
 *_rsa
 instance_group/id_rsa.pub
+
+# Ignore Terraform State file
+
+*.tf_state
+*.tf_state.backup
