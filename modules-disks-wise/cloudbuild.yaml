@@ -5,14 +5,50 @@ steps:
     args: 
     - '-c'
     - | 
-        echo "branch $BRANCH_NAME"
+          echo "-------------------------------------------------------------------------------------"
+          echo "-------------------------------------------------------------------------------------"
+          echo "branch $BRANCH_NAME"
+
+          echo "-------------------------------------------------------------------------------------"
+          echo "-------------------------------------------------------------------------------------"
           cd modules-disks-wise/
-          echo "#......Initiation in progress...please be patient !......#"
+          echo "#........... Initiation in progress...please be patient !! .............#"
           terraform init
-          echo "#......Validation Initiated...please be patient !......#"
+
+
+          echo "-------------------------------------------------------------------------------------"
+          echo "-------------------------------------------------------------------------------------"
+          echo "#............. Validation Initiated...please be patient !! .............#"
           terraform validate
-          echo "#......Plan Initiated...please be patient !.......#"
+
+
+          echo "-------------------------------------------------------------------------------------"
+          echo "-------------------------------------------------------------------------------------"
+          echo "#............... Plan Initiated...please be patient !! .................#"
           terraform plan -out terraform.plan
+
+
+          echo "-------------------------------------------------------------------------------------"
+          echo "-------------------------------------------------------------------------------------"
+          cd policy/
+          echo "Now OPA Policy Agent will be downloaded and it will start policy checks"
+          echo "#.................... Downloading OPA Agent binary .....................#"
+          curl -L -o opa https://github.com/open-policy-agent/opa/releases/download/v0.11.0/opa_linux_amd64
+          echo "#................ Downloaded OPA binary successfully..!! ...............#"
+          echo "#.......... Applying Execute permission to OPA Agent Binary ............#"
+          chmod 755 ./opa
+          echo "#.......... Converting terraform plan file into JSON format ............#"
+          terraform show -json ../terraform.plan > tf.json
           
-          echo "#......Build Initiated...please be patient !......#"
+
+          echo "-------------------------------------------------------------------------------------"
+          echo "-------------------------------------------------------------------------------------"
+          echo "#........... Starting Policy Checks...please be patient !! .............#"
+          ./opa eval --data policy.rego --input tfplan.json "data.terraform" --format pretty
+          echo "OPA Test completed on $(date)"
+
+
+          echo "-------------------------------------------------------------------------------------"
+          echo "-------------------------------------------------------------------------------------"
+          echo "#.............. Build Initiated...please be patient !! .................#"
           terraform apply -auto-approve terraform.plan
