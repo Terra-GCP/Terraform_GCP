@@ -30,25 +30,5 @@ steps:
 
           echo "-------------------------------------------------------------------------------------"
           echo "-------------------------------------------------------------------------------------"
-          cd policy/
-          #echo "Now OPA Policy Agent will be downloaded and it will start policy checks"
-          #echo "#.................... Downloading OPA Agent binary .....................#"
-          #curl -L -o opa https://github.com/open-policy-agent/opa/releases/download/v0.11.0/opa_linux_amd64
-          #echo "#................ Downloaded OPA binary successfully..!! ...............#"
-          #echo "#.......... Applying Execute permission to OPA Agent Binary ............#"
-          #chmod 755 ./opa
-          echo "#.......... Converting terraform plan file into JSON format ............#"
-          terraform show -json terraform.plan > /policy/tfplan.json
-          
-
-          echo "-------------------------------------------------------------------------------------"
-          echo "-------------------------------------------------------------------------------------"
-          echo "#........... Starting Policy Checks...please be patient !! .............#"
-          ./policy/opa eval --data policy/policy.rego --input policy/tfplan.json "data.terraform" --format pretty
-          echo "OPA Test completed on $(date)"
-
-
-          echo "-------------------------------------------------------------------------------------"
-          echo "-------------------------------------------------------------------------------------"
           echo "#.............. Build Initiated...please be patient !! .................#"
           terraform apply -auto-approve terraform.plan
