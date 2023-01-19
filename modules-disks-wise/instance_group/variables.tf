@@ -52,7 +52,8 @@ variable "tags" {
 }
 variable "labels" {
     default = {
-                env = "prod"
+                prod = "true"
+                group = "group-1"
                 lin-patch = "true"
                 }
     description = "Labels to be applied on VMs"

@@ -2,7 +2,7 @@
 
 terraform {
     backend "gcs" {
-    bucket  = "ayush_bucket"
+    bucket  = "os-patching-backend"
     prefix  = "tf_state/"
   }
 }

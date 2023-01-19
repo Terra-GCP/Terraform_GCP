@@ -19,7 +19,7 @@ variable "tier" {
 }
 variable "labels" {
     default = {
-                env = "prod"
+                prod = "true"
                 type = "filestore"
                 protocol = "nfs"
                 }
