@@ -43,7 +43,7 @@ variable "zone" {
 }
 variable "machine_type" {
     type = any
-    default = "n1-standard-1"
+    default = "f1-micro"
     description = "Machine Type family to be used for instance provisioning"
 }
 variable "tags" {
@@ -52,7 +52,8 @@ variable "tags" {
 }
 variable "labels" {
     default = {
-                env = "prod"
+                prod = "true"
+                group = "group-1"
                 lin-patch = "true"
                 }
     description = "Labels to be applied on VMs"

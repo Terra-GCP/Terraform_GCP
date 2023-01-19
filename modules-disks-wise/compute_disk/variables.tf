@@ -32,7 +32,7 @@ variable "boot_disk_name" {
 variable "boot_disk_labels" {
     default = {
         prefix = "gus"
-        env = "prod"
+        prod = "true"
         disk = "boot"
         }
     description = "Labels to apply to the boot disk"
@@ -58,7 +58,7 @@ variable "data_disk_labels" {
     type = any
     default = {
         prefix = "gus"
-        env = "prod"
+        prod = "true"
         disk = "data"
         }
     description = "Labels to apply to the data disk"

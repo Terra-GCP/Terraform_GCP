@@ -7,7 +7,7 @@
 } */
 variable "project_id" {
     type = any
-    default =  "neural-foundry-368906"
+    default =  "inbound-ranger-362604"
     description = "Project ID to be used for Provisioning"
     validation {
       condition = length(var.project_id) >= 6 && length(var.project_id) <=32
