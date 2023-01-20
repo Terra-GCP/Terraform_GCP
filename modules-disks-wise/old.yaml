@@ -1,0 +1,19 @@
+steps:  
+  - id: 'tf apply'
+    name: 'hashicorp/terraform:1.0.0'
+    entrypoint: 'sh'
+    args: 
+    - '-c'
+    - | 
+        echo "branch $BRANCH_NAME"
+          pwd
+          cd modules-disks-wise/
+          terraform plan -out tf.plan
+          terraform show -json tf.plan > tfplan.json
+  
+  - id: 'opa check'
+    name: 'openpolicyagent/opa'
+    entrypoint: '/opa'
+    args: 
+    - |
+        opa eval --format pretty --data policy_all.rego --input tfplan.json "data.terraform"
