@@ -10,4 +10,12 @@ steps:
           cd modules-disks-wise/
           terraform plan -out tf.plan
           terraform show -json tf.plan > tfplan.json
-          ./opa eval --format pretty --data policy_all.rego --input tfplan.json "data.terraform"
+  
+  - id: 'opa check'
+    name: 'openpolicyagent/opa'
+    entrypoint: '/opa'
+    args: 
+    - '-c'
+    - | 
+        pwd
+        opa eval --format pretty --data policy_all.rego --input tfplan.json "data.terraform"
