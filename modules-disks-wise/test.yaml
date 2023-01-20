@@ -10,6 +10,4 @@ steps:
           cd modules-disks-wise/
           terraform plan -out tf.plan
           terraform show -json tf.plan > tfplan.json
-          cd ../usr/bin; curl -L -o opa https://github.com/open-policy-agent/opa/releases/download/v0.11.0/opa_linux_amd64
-          cd ../usr/bin; chmod 755 opa
-          ../usr/bin/opa eval --format pretty --data policy_all.rego --input tfplan.json "data.terraform"
+          ./opa eval --format pretty --data policy_all.rego --input tfplan.json "data.terraform"
