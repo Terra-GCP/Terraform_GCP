@@ -15,6 +15,5 @@ steps:
     name: 'openpolicyagent/opa'
     entrypoint: '/opa'
     args: 
-    - | 
-        pwd
+    - |
         opa eval --format pretty --data policy_all.rego --input tfplan.json "data.terraform"
