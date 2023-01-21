@@ -8,8 +8,8 @@
         - '-c'
         - |
             apk add git bash curl
-              curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
-              unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
+              curl https://releases.hashicorp.com/terraform/0.14.11/terraform_0.14.11_linux_amd64.zip -o terraform_0.14.11_linux_amd64.zip && \
+              unzip terraform_0.14.11_linux_amd64.zip && \
               terraform plan -out tf.plan
               terraform show -json tf.plan > tfplan.json
               terraform validate .
