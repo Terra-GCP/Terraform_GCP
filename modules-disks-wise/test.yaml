@@ -3,13 +3,13 @@
     - id: 'policy-check'
       name: 'alpine:3.13.3'
       dir: 'modules-disks-wise/'
-      entrypoint: 'sh'
+      entrypoint: '/usr/bin/terraform'
       args:
         - '-c'
         - |
             apk add git bash curl
               curl https://releases.hashicorp.com/terraform/0.14.11/terraform_0.14.11_linux_amd64.zip -o terraform_0.14.11_linux_amd64.zip && \
-              unzip terraform_0.14.11_linux_amd64.zip && \
+              unzip terraform_0.14.11_linux_amd64.zip -d /usr/bin && \
               terraform plan -out tf.plan
               terraform show -json tf.plan > tfplan.json
               terraform validate .
