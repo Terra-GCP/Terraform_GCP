@@ -9,10 +9,10 @@
         - |
               apt update
               apt upgrade
-              apt install wget
               apt install curl -y
-              apt-get install unzip
+              apt install wget -y
               wget https://releases.hashicorp.com/terraform/1.0.7/terraform_1.0.7_linux_amd64.zip
+              apt-get install unzip
               unzip terraform_1.0.7_linux_amd64.zip
               mv terraform /usr/local/bin/
               terraform plan -out tf.plan
