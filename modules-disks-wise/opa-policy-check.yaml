@@ -60,8 +60,8 @@
               echo "-------------------------------------------------------------------------------------"
               echo "#............. Downloading Checkov tool & dependencies...!! ............#"
               cd ..
-              sudo apt install python3
-              sudo apt install python3-pip
-              sudo python3 -m pip install -U checkov
+              apt install python3
+              apt install python3-pip
+              python3 -m pip install -U checkov
               checkov -f tfplan.json
   
