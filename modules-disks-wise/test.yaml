@@ -1,19 +1,24 @@
 ---
   steps:
     - id: 'policy-check'
-      name: 'alpine:3.13.3'
+      name: 'ubuntu'
       dir: 'modules-disks-wise/'
-      entrypoint: '/usr/bin/terraform'
+      entrypoint: 'sh'
       args:
         - '-c'
         - |
-            apk add git bash curl
-              curl https://releases.hashicorp.com/terraform/0.14.11/terraform_0.14.11_linux_amd64.zip -o terraform_0.14.11_linux_amd64.zip && \
-              unzip terraform_0.14.11_linux_amd64.zip -d /usr/bin && \
+              apt update
+              apt upgrade
+              apt install wget
+              apt install curl -y
+              apt-get install unzip
+              wget https://releases.hashicorp.com/terraform/1.0.7/terraform_1.0.7_linux_amd64.zip
+              unzip terraform_1.0.7_linux_amd64.zip
+              mv terraform /usr/local/bin/
               terraform plan -out tf.plan
               terraform show -json tf.plan > tfplan.json
               terraform validate .
               curl -L -o opa https://github.com/open-policy-agent/opa/releases/download/v0.11.0/opa_linux_amd64
               chmod 755 opa
-              opa eval --format pretty --data policy_all.rego --input tfplan.json "data.terraform"
+              ./opa eval --format pretty --data policy_all.rego --input tfplan.json "data.terraform"
   
