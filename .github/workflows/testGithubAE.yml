@@ -23,6 +23,7 @@ jobs:
       # Runs a single command using the runners shell
       - id: 'policy-check'
         run: |
+              pwd
               cd modules-disks-wise/
               echo "-------------------------------------------------------------------------------------"
               echo "-------------------------------------------------------------------------------------"
