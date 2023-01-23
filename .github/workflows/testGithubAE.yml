@@ -24,7 +24,6 @@ jobs:
     steps:
       # Runs a single command using the runners shell
       - id: 'policy-check'
-        working-directory: ./modules-disks-wise
         run: |
               echo "-------------------------------------------------------------------------------------"
               echo "-------------------------------------------------------------------------------------"
