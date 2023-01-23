@@ -22,10 +22,12 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Runs a single command using the runners shell
+      - name: Checkout
+        uses: actions/checkout@v3
+      
       - id: 'policy-check'
         run: |
-              git clone git@github.com:ayush-25-shukla/Terraform_GCP.git -q
-              cd Terraform_GCP/modules-disks-wise/
+              cd modules-disks-wise/
               echo "-------------------------------------------------------------------------------------"
               echo "-------------------------------------------------------------------------------------"
               echo "#.............. Updating Ubuntu...please be patient !! .................#"
