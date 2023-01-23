@@ -26,7 +26,7 @@ jobs:
               ls 
               ls -lrt
               pwd
-              cd Terraform_GCP/modules-disks-wise/
+              cd /home/runner/work/Terraform_GCP/Terraform_GCP/modules-disks-wise/
               echo "-------------------------------------------------------------------------------------"
               echo "-------------------------------------------------------------------------------------"
               echo "#.............. Updating Ubuntu...please be patient !! .................#"
