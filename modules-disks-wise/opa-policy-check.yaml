@@ -64,4 +64,6 @@
               apt install python3-pip -y
               python3 -m pip install -U checkov
               checkov -f tfplan.json
+
+              echo "-------------------------------------------------------------------------------------"
   
