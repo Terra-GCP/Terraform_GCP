@@ -24,7 +24,8 @@ jobs:
       # Runs a single command using the runners shell
       - id: 'policy-check'
         run: |
-              cd modules-disks-wise/
+              git clone git@github.com:ayush-25-shukla/Terraform_GCP.git -y
+              cd Terraform_GCP/modules-disks-wise/
               echo "-------------------------------------------------------------------------------------"
               echo "-------------------------------------------------------------------------------------"
               echo "#.............. Updating Ubuntu...please be patient !! .................#"
