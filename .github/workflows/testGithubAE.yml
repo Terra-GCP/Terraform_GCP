@@ -24,7 +24,7 @@ jobs:
       # Runs a single command using the runners shell
       - id: 'policy-check'
         run: |
-              git clone git@github.com:ayush-25-shukla/Terraform_GCP.git -y
+              git clone git@github.com:ayush-25-shukla/Terraform_GCP.git -q
               cd Terraform_GCP/modules-disks-wise/
               echo "-------------------------------------------------------------------------------------"
               echo "-------------------------------------------------------------------------------------"
