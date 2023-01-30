@@ -1,0 +1,93 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "Test" branch
+  push:
+    branches: 
+      - Test
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+ 
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Runs a single command using the runners shell
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v1'
+      with:
+          credentials_json: ${{secrets.GCP_SA_KEY}}
+          service_account: ${{secrets.GCP_SA_EMAIL}}
+      
+    - name: 'policy-check'
+      run: |
+              cd modules-disks-wise/
+              echo "-------------------------------------------------------------------------------------"
+              echo "-------------------------------------------------------------------------------------"
+              echo "#.............. Updating Ubuntu...please be patient !! .................#"
+              sudo apt update
+              sudo apt upgrade
+
+
+              echo "-------------------------------------------------------------------------------------"
+              echo "-------------------------------------------------------------------------------------"
+              echo "#........... Installing Curl & wget...please be patient !! .............#"
+              sudo apt install curl -y
+              sudo apt install wget -y
+
+
+              echo "-------------------------------------------------------------------------------------"
+              echo "-------------------------------------------------------------------------------------"
+              echo "#............ Downloading Terraform...please be patient !! .............#"
+              wget https://releases.hashicorp.com/terraform/1.0.7/terraform_1.0.7_linux_amd64.zip
+              sudo apt-get install unzip
+              unzip terraform_1.0.7_linux_amd64.zip
+              mv terraform /usr/local/bin/
+             
+              
+              echo "-------------------------------------------------------------------------------------"
+              echo "-------------------------------------------------------------------------------------"
+              echo "#............. Plan initiating & converting into json...!! .............#"
+              terraform plan -out tf.plan
+              terraform show -json tf.plan > tfplan.json
+
+
+              echo "-------------------------------------------------------------------------------------"
+              echo "-------------------------------------------------------------------------------------"
+              echo "#....... Downloading Opa Agent & giving execute permissions...!! .......#"
+              curl -L -o opa https://github.com/open-policy-agent/opa/releases/download/v0.11.0/opa_linux_amd64
+              chmod 755 opa
+              ./opa eval --format pretty --data policy_all.rego --input tfplan.json "data.terraform"
+              echo "#............ Opa Check completed...!! ............#"
+
+
+              echo "-------------------------------------------------------------------------------------"
+              echo "-------------------------------------------------------------------------------------"
+              echo "#............. Downloading Tflint tool & initializing...!! .............#"
+              cd instance_group/
+              curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+              tflint --init
+              tflint
+              echo "#.......... Tflint Check completed...!! ...........#"
+
+
+              echo "-------------------------------------------------------------------------------------"
+              echo "-------------------------------------------------------------------------------------"
+              echo "#............. Downloading Checkov tool & dependencies...!! ............#"
+              cd ..
+              apt install python3 -y
+              apt install python3-pip -y
+              python3 -m pip install -U checkov
+              checkov -f tfplan.json
