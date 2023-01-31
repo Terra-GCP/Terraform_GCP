@@ -14,6 +14,7 @@ module "compute_subnetwork" {
 
 module "compute_firewall" {
     source = "./compute_firewall"
+    #checkov:skip=CKV_GCP_2,CKV_GCP_3,CKV_GCP_106:Firewall rules allowed for only specific port no.
     network_name = module.compute_network.network_name
     firewall_name = "${var.prefix}-firewall-rule"
     depends = module.compute_subnetwork.subnetwork_name
@@ -40,6 +41,7 @@ module "snapshot_schedule" {
 module "compute_disk" {
     source = "./compute_disk"
     zone = var.zone
+    #checkov:skip=CKV_GCP_37:Disks doesn't require keys as this is testing only.
     boot_disk_name = "${var.prefix}-boot-disk"                                #.....Replace Me.....#
     data_disk_name = "${var.prefix}-data-disk"                                #.....Replace Me.....#
     resource_policies = module.snapshot_schedule.schedule_id                               

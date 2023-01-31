@@ -1,6 +1,7 @@
 #.................................... Firewall Provisioning ....................................#
 
 resource "google_compute_firewall" "TF_Firewall" {
+  #checkov:skip=CKV_GCP_2,CKV_GCP_3,CKV_GCP_106:Firewall rules allowed for only specific port no.
   name    = "${var.firewall_name}"
   network = "${var.network_name}"
   direction = "${var.direction}"
@@ -11,6 +12,7 @@ resource "google_compute_firewall" "TF_Firewall" {
   target_tags = "${var.target_tags}"
 
   for_each = {
+    #checkov:skip=CKV_GCP_2,CKV_GCP_3,CKV_GCP_106:Firewall rules allowed for only specific port no.
     "tcp" = var.ports
   }
   allow {
