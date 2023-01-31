@@ -13,3 +13,11 @@ rule "terraform_required_providers" {
 rule "terraform_typed_variables" {
     enabled = false
 }
+rule "terraform_deprecated_interpolation" {
+    enabled = false
+    recommended = false
+}
+rule "terraform_deprecated_index" {
+    enabled = false
+    recommended = false
+}
