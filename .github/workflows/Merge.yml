@@ -24,7 +24,7 @@ jobs:
         pr_template: ".github/workflows/PULL_REQUEST_TEMPLATE.md"   # Path to pull request template, requires pr_title to be set, excludes pr_body
         pr_reviewer: Vandana-26-a                                   # Comma-separated list (no spaces)
         pr_assignee: Vandana-26-a                                   # Comma-separated list (no spaces)
-        pr_label: "enhancement","auto-pr"                           # Comma-separated list (no spaces)
+        pr_label: "auto-pr"                                         # Comma-separated list (no spaces)
         pr_project: "GCP-Scale-Delivery-Terraform"
         pr_draft: false                                             # Creates pull request as draft
         pr_allow_empty: true                                        # Creates pull request even if there are no changes
