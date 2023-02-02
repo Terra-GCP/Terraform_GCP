@@ -1,4 +1,4 @@
-name: CI build
+name: CI merge
 # Only trigger, when the policy workflow succeeded
 on:
   workflow_run:
@@ -16,7 +16,7 @@ jobs:
       with:
         source_branch: ""                                           # If blank, default: triggered branch
         destination_branch: main                                    # If blank, default: master
-        pr_title: "Pulling ${{ github.ref }} into master"           # Title of pull request
+        pr_title: "Merge_into_Main"                                 # Title of pull request
         pr_body: |                                                  # Full markdown support, requires pr_title to be set
           :crown: *An automated PR*
 
@@ -25,7 +25,6 @@ jobs:
         pr_reviewer: Vandana-26-a                                   # Comma-separated list (no spaces)
         pr_assignee: Vandana-26-a                                   # Comma-separated list (no spaces)
         pr_label: "auto-pr"                                         # Comma-separated list (no spaces)
-        #pr_milestone: "Milestone 1"                                 # Milestone name
-        pr_draft: true                                              # Creates pull request as draft
+        pr_draft: false                                             # Creates pull request as draft
         pr_allow_empty: true                                        # Creates pull request even if there are no changes
         github_token: ${{secrets.GITHUB_TOKEN}}                     # If blank, default: secrets.GITHUB_TOKEN
