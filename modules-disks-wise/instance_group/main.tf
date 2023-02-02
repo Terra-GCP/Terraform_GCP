@@ -19,15 +19,15 @@ data "google_secret_manager_secret_version" "get_ssh_key" {
 #..................................... VM Provisioning .......................................#
 
 resource "google_compute_instance" "TF_VM" {
-  name  = "${var.vm_name}"
-  zone = "${var.zone}"
-  machine_type = "${var.machine_type}"
-  tags = "${var.tags}"
-  labels = "${var.labels}"
+  name  = var.vm_name
+  zone = var.zone
+  machine_type = var.machine_type
+  tags = var.tags
+  labels = var.labels
   can_ip_forward = var.can_ip_forward
-  description = "${var.description}"
+  description = var.description
   deletion_protection = var.deletion_protection
-  hostname = "${var.hostname}"
+  hostname = var.hostname
   allow_stopping_for_update = var.update_properties
   metadata_startup_script = var.startup_script
   enable_display = var.enable_display

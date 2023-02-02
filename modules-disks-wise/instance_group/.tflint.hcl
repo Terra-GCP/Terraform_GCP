@@ -10,6 +10,14 @@ rule "google_compute_instance_invalid_machine_type" {
 rule "terraform_required_providers" {
   enabled = false
 }
+rule "terraform_typed_variables" {
+    enabled = false
+}
+rule "terraform_deprecated_interpolation" {
+    enabled = false
+    recommended = false
+}
 rule "terraform_deprecated_index" {
     enabled = false
+    recommended = false
 }

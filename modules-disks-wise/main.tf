@@ -1,12 +1,12 @@
 module "compute_network" {
     source = "./compute_network"
-    project_id = "${var.project_id}"
+    project_id = var.project_id
     network_name = "${var.prefix}-vpc"                                          #.....Replace Me.....#
 }
 
 module "compute_subnetwork" {
     source = "./compute_subnetwork"
-    region = "${var.region}"
+    region = var.region
     network_name = module.compute_network.network_name
     subnet_name = "${var.prefix}-subnet"
     depends = module.compute_network.network_name
@@ -14,6 +14,7 @@ module "compute_subnetwork" {
 
 module "compute_firewall" {
     source = "./compute_firewall"
+    #checkov:skip=CKV_GCP_2,CKV_GCP_3,CKV_GCP_106:Firewall rules allowed for only specific port no.
     network_name = module.compute_network.network_name
     firewall_name = "${var.prefix}-firewall-rule"
     depends = module.compute_subnetwork.subnetwork_name
@@ -39,7 +40,8 @@ module "snapshot_schedule" {
 
 module "compute_disk" {
     source = "./compute_disk"
-    zone = "${var.zone}"
+    zone = var.zone
+    #checkov:skip=CKV_GCP_37:Disks doesn't require keys as this is testing only.
     boot_disk_name = "${var.prefix}-boot-disk"                                #.....Replace Me.....#
     data_disk_name = "${var.prefix}-data-disk"                                #.....Replace Me.....#
     resource_policies = module.snapshot_schedule.schedule_id                               
@@ -49,7 +51,7 @@ module "compute_disk" {
 module "filestore_instance" {
     source = "./filestore_instance"
     filestore_name = "${var.prefix}-filestore"
-    zone = "${var.zone}"
+    zone = var.zone
     network_name = module.compute_network.network_id                     
     depends = module.compute_disk.Data_Disk_Name
 }

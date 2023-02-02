@@ -43,7 +43,7 @@ variable "zone" {
 }
 variable "machine_type" {
     type = any
-    default = "f1-micro"
+    default = "n1-standard-1"
     description = "Machine Type family to be used for instance provisioning"
 }
 variable "tags" {
