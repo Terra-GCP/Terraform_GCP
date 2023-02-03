@@ -18,7 +18,7 @@ jobs:
         destination_branch: main                                    # If blank, default: master
         pr_title: "Merge_into_Main"                                 # Title of pull request
         pr_body: |                                                  # Full markdown support, requires pr_title to be set
-          :crown: *An automated PR*
+          :crown: *An Automated PR*
 
           _Created by [repo-sync/pull-request](https://github.com/repo-sync/pull-request)_
         pr_template: ".github/workflows/PULL_REQUEST_TEMPLATE.md"   # Path to pull request template, requires pr_title to be set, excludes pr_body
