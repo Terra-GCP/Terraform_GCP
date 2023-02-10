@@ -221,3 +221,4 @@ output "os-patch-update-time" {
 output "OS_Patching" {
   value = module.os_patching.os-patch-duration
 }
+
